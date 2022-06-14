@@ -13,21 +13,22 @@ class Movie extends Model
     use HasFactory;
     public function movieType()
 
-    {
+    { //relation with types 1:n
         return $this->belongsTo(MovieType::class);
     }
 
+    //relation with genres n:m
     public function genres()
 
     {
         return $this->belongsToMany(Genre::class);
     }
 
-    //relatoinship with review
+    //relatoinship with review 1:n
     public function reviews()
 
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class);  //1"n = movie has meny reviews
     }
 
 }

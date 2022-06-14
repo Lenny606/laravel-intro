@@ -23,6 +23,7 @@
         <input type="text" name="value">
         <input type="submit" value="Rate">
     </form>
+    <!-- collection of obj. from Movie Model class -->
     <?php foreach ($movie->reviews as $value): ?>
         
         <li>User: <?=$value->user_id?> -> rated:  <?=$value->value?></li>

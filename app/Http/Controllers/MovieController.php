@@ -28,13 +28,9 @@ class MovieController extends Controller
 
     public function topRated()
     {   
-        $game_type = Movie::where('name', 'game')->first();
+       
 
-        $game_type -> movies(); //select from 'movies' where movie type id =
-
-        $movie->genres->movie;
-
-        $top50 = Movie::orderBy('rating')
+        $top50 = Movie::orderBy('rating')  //eloquent orm
                         ->limit('10')
                         ->get();
         
@@ -43,13 +39,41 @@ class MovieController extends Controller
         return view('index/movies.top-rated', compact('top50'));
     }
 
+    public function actionMovies()
+    {
+         $genre = Genre::where('name', 'action')->first(); //returns one record
+
+         $movies = $genres->movie;
+
+        // $game_type -> movies(); //select from 'movies' where movie type id =
+        
+        $query = "
+        SELECT `movies`.*
+        FROM `genre_movie`
+        LEFT JOIN `movies`
+            ON `genre_movie`.`movie_id` = `movies`.`id`
+        WHERE `genre_movie`.`genre_id` = ?
+            AND `votes_nr` >= ?
+            AND `movie_type_id` = ?
+        ORDER BY `rating` DESC
+        LIMIT 50
+    ";
+
+    $movies = DB::select($query, [31, 5000, 1]);
+
+    return view('movies.top-rated-genre', [
+        'genre_name' => 'Action movies',
+        'movies' => $movies
+    ]);
+    }
+
     public function shawshank()
     {
 
         $movie =  Movie::where('id', '=', '111161')
                   ->first();
 
-                  //shorthand: Movie::findOrFail("111161") -generetas 404err
+                  //shorthand: Movie::findOrFail("111161") -generetas 404err if not find
                 // DB::selectOne(
                 // 'SELECT * FROM `movies` WHERE `id`=?', [111161]); 
        

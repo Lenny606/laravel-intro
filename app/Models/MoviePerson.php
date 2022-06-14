@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class MoviePerson extends Model
 {
     use HasFactory;
-    // protected / or publi $table = 'movie_person';
+    //movie_people
+     protected $table = 'movie_person';  //relation for 1:1 / LEFT JOIN
 }
