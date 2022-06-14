@@ -14,8 +14,26 @@
     <p><?=$movie->year?></p>
     <p><?=$movie->votes_nr?></p>
     <p><?=$movie->rating?></p>
+    <form action="/movies/rate" method="post"> 
+        @csrf
+        <input type="hidden" name="movie_id" value=<?=$movie->id?>>
+        user
+        <input type="text" name="user_id">
+        review
+        <input type="text" name="value">
+        <input type="submit" value="Rate">
+    </form>
+    <?php foreach ($movie->reviews as $value): ?>
+        
+        <li>User: <?=$value->user_id?> -> rated:  <?=$value->value?></li>
+        <?php endforeach; ?>
+        
+     </ul>
+
     <p><strong>Cast:</strong></p>
     <ul>
+
+    
     <?php foreach ($cast as $value): ?>
         <li><?=$value->fullname?> as: <?=$value->description ?? "-----------" ?></li>
         <?php endforeach; ?>

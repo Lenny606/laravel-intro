@@ -26,3 +26,5 @@ Route::get('/top-rated-games',['App\Http\Controllers\VideogameController','topRa
 Route::get('/movies/shawshank-redemption',['App\Http\Controllers\MovieController','shawshank']);
 Route::get('/movies/search',['App\Http\Controllers\MovieController','search']);
 Route::get('/movies', ['App\Http\Controllers\MovieController', 'index']);
+Route::post('/movies/rate', ['App\Http\Controllers\ReviewController', 'store']);
+

@@ -16,7 +16,13 @@
             <?php endforeach; ?>
        
     </ul>
-     
-  
+    <ul>
+        <!-- creates property what didnt exist via __get() -->
+        <?php foreach($movies->genre as $value) : ?>  
+            <p><?=$value->Genre->name?></p>
+            <?php endforeach; ?>
+       
+    </ul>
+            
 </body>
 </html>

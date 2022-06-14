@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Movie;
+use App\Models\MoviePerson;
+
 
 
 class MovieController extends Controller
@@ -25,12 +27,20 @@ class MovieController extends Controller
 
 
     public function topRated()
-    {
-        $top50 = DB::select('SELECT * FROM `movies` ORDER BY `rating` LIMIT 10');
+    {   
+        $game_type = Movie::where('name', 'game')->first();
 
-        return view('index/movies.top-rated', [
-        'top50' => $top50
-        ]);
+        $game_type -> movies(); //select from 'movies' where movie type id =
+
+        $movie->genres->movie;
+
+        $top50 = Movie::orderBy('rating')
+                        ->limit('10')
+                        ->get();
+        
+        //DB::select('SELECT * FROM `movies` ORDER BY `rating` LIMIT 10');
+
+        return view('index/movies.top-rated', compact('top50'));
     }
 
     public function shawshank()
@@ -38,21 +48,31 @@ class MovieController extends Controller
 
         $movie =  Movie::where('id', '=', '111161')
                   ->first();
+
+                  //shorthand: Movie::findOrFail("111161") -generetas 404err
                 // DB::selectOne(
                 // 'SELECT * FROM `movies` WHERE `id`=?', [111161]); 
-         
+       
 
         $cast = DB::select(
             'SELECT * FROM `movie_person`
              LEFT JOIN `people` ON `movie_person`.`person_id`= `people`.`id`
              WHERE `movie_person`.`movie_id`= ?', [$movie->id]); 
       
+      //cast = MoviePerson::query()
+           // ->leftJoin(what table, match , which table)
+           // ->leftJoin('movie_person')
+           // ->where()
+           //->selectRaw()
+            //-get()
 
+            //other way use Right JOIN and swicth positions
 
         return view('index/movies.detail', [
 
             'movie' => $movie,
-             'cast' => $cast   
+             'cast' => $cast,
+              
 
         ]);
              
@@ -63,12 +83,13 @@ class MovieController extends Controller
         if (isset($_GET['search'])) {
 
             $name = $_GET['search'];
-            $result = DB::select('SELECT * FROM `movies` WHERE `name` LIKE ?', ['%'. $name.'%']);
+            $result = Movie::where('name', 'like', '%'.$name.'%');
+            // DB::select('SELECT * FROM `movies` WHERE `name` LIKE ?', ['%'. $name.'%']);
             
              } else {
                
             $name = "";
-            $result = [];
+            $result = []; //change to empty Collection 
              };
         
 
