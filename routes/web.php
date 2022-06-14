@@ -24,3 +24,5 @@ Route::get('/hello', ['App\Http\Controllers\IndexController', 'index']);
 Route::get('/top-rated-movies', ['App\Http\Controllers\MovieController','topRated']);
 Route::get('/top-rated-games',['App\Http\Controllers\VideogameController','topRated']);
 Route::get('/movies/shawshank-redemption',['App\Http\Controllers\MovieController','shawshank']);
+Route::get('/movies/search',['App\Http\Controllers\MovieController','search']);
+Route::get('/movies', ['App\Http\Controllers\MovieController', 'index']);

@@ -8,23 +8,19 @@
 </head>
 <body>
     <h1>Detail</h1>
-    <h2><?= $shawshank[0]->name?></h2>
+    <h2><?= $movie->name?></h2>
 
-    <p><?=$shawshank[0]->length?> min</p>
-    <p><?=$shawshank[0]->year?></p>
-    <p><?=$shawshank[0]->votes_nr?></p>
-    <p><?=$shawshank[0]->rating?></p>
-    <p><strong>Characters:</strong></p>
+    <p><?=$movie->length?> min</p>
+    <p><?=$movie->year?></p>
+    <p><?=$movie->votes_nr?></p>
+    <p><?=$movie->rating?></p>
+    <p><strong>Cast:</strong></p>
     <ul>
-    <?php foreach ($shawshank as $value): ?>
-        <li><?=$value->description?></li>
+    <?php foreach ($cast as $value): ?>
+        <li><?=$value->fullname?> as: <?=$value->description ?? "-----------" ?></li>
         <?php endforeach; ?>
      </ul>
 
-    
-    
-  
-     
-  
+         
 </body>
 </html>
